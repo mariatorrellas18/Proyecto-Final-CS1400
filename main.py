@@ -148,7 +148,7 @@ def main():
 
         elif opcion == "2":
             print("\n¡Gracias por usar nuestra calculadora!")
-            print("¡Buen viaje!")
+            print("¡Buen viaje turista!")
             break
 
         else:
