@@ -1,45 +1,4 @@
-Para nuestro proyecto final CS1400
-Estamos realizando esta calculadora de distancias, esta calculadora permite al usuario ingresar una ciudad de origen, una ciudad de destino y elegir si quiere la distancia en kilómetros o millas. 
-
-Comenzamos con la primera Función: 
-#mostrar_menu()
-Primero, creamos una función llamada mostrar_menu() que se encarga de mostrar la bienvenida al turista y las opciones disponibles. Utilizamos def para definir la función y print() para mostrar los mensajes en pantalla. El usuario tiene dos opciones, puede elegir entre calcular una distancia o salir del programa.
-
-#Función pedir_ciudad()
-Esta función nos permite pedir al usuario la ciudad de origen y la ciudad de destino. Utilizamos input() para recibir la información y .strip() para eliminar los espacios innecesarios al principio y al final del texto.
-
-También usamos while True para repetir la pregunta si el usuario deja el campo vacío. Con if verificamos que haya escrito una ciudad y con return devolvemos el nombre. Si no escribe nada, else muestra un mensaje de error.
-
-#Función pedir_unidad()
-Esta función permite elegir en qué unidad queremos calcular la distancia, ya sea kilómetros o millas.
-
-Usamos input(): para recibir la respuesta, .strip() para quitar espacios y .lower() para convertir el texto a minúsculas y evitar problemas si el usuario escribe con mayúsculas.
-
-Utilizamos if y elif: para comprobar si escribió "km" o "millas". Si la respuesta es correcta, usamos return para devolver la unidad seleccionada. Si escribe algo diferente, else muestra un error y el programa vuelve a preguntar gracias a while True.
-
-#Función mostrar_resumen()
-Esta función se encarga de mostrar un resumen de la información que ingresó el usuario.
-
-Recibe tres datos: origen, destino y unidad. Utilizamos print() para mostrar las ciudades seleccionadas y la unidad de distancia.
-
-También usamos f antes de las comillas para incluir los valores de las variables dentro de los mensajes, como f"Origen: {origen}".
-
-Al final, mostramos el mensaje "Consultando datos..." para indicar que estamos preparando la consulta.
-
-#Función main()
-Esta es la función principal porque se encarga de controlar todo el funcionamiento del programa.
-
-Primero, utilizamos while True para que el menú se siga mostrando hasta que el usuario decida salir.
-
-Llamamos a mostrar_menu() para enseñar las opciones y usamos input() para pedir que elija una.
-
-Si selecciona la opción 1, utilizamos if para llamar a las funciones pedir_ciudad(), pedir_unidad() y mostrar_resumen(). Así podemos obtener la información y mostrarla de forma organizada.
-
-Si selecciona la opción 2, utilizamos elif para mostrar un mensaje de despedida y break para terminar el ciclo y salir del programa.
-
-Si escribe una opción incorrecta, usamos else para mostrar un mensaje de error y permitirle intentar nuevamente.
-
-#Ejecución del programa
-Finalmente, utilizamos if __name__ == "__main__": para indicar que la función main() debe ejecutarse cuando abrimos directamente este archivo de Python.
-
-Esto permite que el programa comience mostrando el menú principal.
+Para nuestro proyecto final de CS1400.
+ Creamos una calculadora de distancias que permite ingresar una ciudad de origen, una de destino y elegir entre kilómetros o millas. Utilizamos diferentes funciones para organizar el programa, como mostrar_menu() para mostrar las opciones, pedir_ciudad() para ingresar las ciudades, pedir_unidad() para seleccionar la unidad y mostrar_resumen() para enseñar la información ingresada. También agregamos consultar_ciudad() para verificar que las ciudades existan y mostrar_coordenadas() para enseñar su latitud y longitud. En el archivo api.py utilizamos requests para conectarnos a la API de Open-Meteo y obtener las coordenadas, y math para calcular la distancia utilizando la fórmula de Haversine. Además, usamos if, elif y else para tomar decisiones, while para repetir preguntas, try y except para manejar errores y return para devolver resultados. Finalmente, main() se encarga de unir todas las funciones y permitir que el usuario utilice la calculadora sin que el programa se cierre cuando ocurre un error.
+ 
+ Para el archivo api.py, creamos dos funciones principales. La primera es obtener_coordenadas(), que nos permite buscar una ciudad utilizando la API de Open-Meteo. Usamos import requests para conectarnos a internet, requests.get() para solicitar la información, timeout=10 para limitar el tiempo de espera y respuesta.json() para obtener los datos. Después, utilizamos if para verificar si la ciudad existe y return para devolver su nombre, país, latitud y longitud. También usamos try y except para manejar errores de conexión y evitar que el programa se cierre inesperadamente. La segunda función es calcular_distancia(), donde utilizamos import math y la fórmula de Haversine para calcular la distancia entre las dos ciudades. Usamos math.radians() para convertir las coordenadas, diferentes operaciones matemáticas para calcular la distancia y if para convertir el resultado a millas si el usuario lo selecciona. Finalmente, utilizamos round() para redondear la distancia a dos decimales y return para enviar el resultado a main.py.

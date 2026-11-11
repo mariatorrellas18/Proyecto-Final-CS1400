@@ -3,6 +3,13 @@ Bienvenida a nuestro proyecto final de CS1400, donde exploraremos y aplicaremos 
 - Gabriela Torrellas y Grecia Lopez.
 """
 
+# Nombre: Gabriela Torrellas
+# Fecha: 11/10/2026
+# Proyecto Final CS1400 - Calculadora de Distancias
+
+from api import obtener_coordenadas, calcular_distancia
+
+
 # Funcion para mostrar el menu principal
 def mostrar_menu():
     """Muestra la bienvenida y las opciones del menu."""
@@ -22,6 +29,30 @@ def pedir_ciudad(mensaje):
             return ciudad
         else:
             print("Error: No puedes dejar este campo vacio.")
+
+
+# Funcion para consultar las coordenadas de una ciudad
+def consultar_ciudad(mensaje):
+    """
+    Busca una ciudad usando la API.
+    Si la ciudad no existe, permite intentar nuevamente.
+    Si ocurre un error de conexion, regresa al menu.
+    """
+
+    while True:
+        ciudad = pedir_ciudad(mensaje)
+
+        try:
+            datos = obtener_coordenadas(ciudad)
+
+            if datos is not None:
+                return datos
+            else:
+                print("Ciudad no encontrada. Intenta con otra ciudad.")
+
+        except (ConnectionError, ValueError) as error:
+            print(f"Error: {error}")
+            return None
 
 
 # Funcion para seleccionar la unidad
@@ -50,6 +81,23 @@ def mostrar_resumen(origen, destino, unidad):
     print("Consultando datos...")
 
 
+# Funcion para mostrar las coordenadas
+def mostrar_coordenadas(origen, destino):
+    """Muestra las coordenadas obtenidas de la API."""
+
+    print("\n--- Coordenadas obtenidas ---")
+
+    print(
+        f"Origen: {origen['nombre']}, {origen['pais']} "
+        f"-> lat {origen['lat']:.4f}, lon {origen['lon']:.4f}"
+    )
+
+    print(
+        f"Destino: {destino['nombre']}, {destino['pais']} "
+        f"-> lat {destino['lat']:.4f}, lon {destino['lon']:.4f}"
+    )
+
+
 # Funcion principal del programa
 def main():
     """Ejecuta el programa hasta que el usuario elija salir."""
@@ -62,15 +110,41 @@ def main():
         if opcion == "1":
             print()
 
-            # Solicitar origen y destino
-            origen = pedir_ciudad("Ciudad de origen: ")
-            destino = pedir_ciudad("Ciudad de destino: ")
+            # Solicitar la ciudad de origen
+            datos_origen = consultar_ciudad("Ciudad de origen: ")
+
+            if datos_origen is None:
+                continue
+
+            # Solicitar la ciudad de destino
+            datos_destino = consultar_ciudad("Ciudad de destino: ")
+
+            if datos_destino is None:
+                continue
 
             # Solicitar unidad de distancia
             unidad = pedir_unidad()
 
             # Mostrar el resumen de confirmacion
-            mostrar_resumen(origen, destino, unidad)
+            mostrar_resumen(
+                datos_origen["nombre"],
+                datos_destino["nombre"],
+                unidad
+            )
+
+            # Mostrar las coordenadas obtenidas
+            mostrar_coordenadas(datos_origen, datos_destino)
+
+            # Calcular la distancia
+            distancia = calcular_distancia(
+                datos_origen,
+                datos_destino,
+                unidad
+            )
+
+            # Mostrar el resultado
+            print("\n--- Resultado de la distancia ---")
+            print(f"Distancia: {distancia} {unidad}")
 
         elif opcion == "2":
             print("\n¡Gracias por usar nuestra calculadora!")
