@@ -3,7 +3,7 @@ Bienvenida a nuestro proyecto final de CS1400, donde exploraremos y aplicaremos 
 - Gabriela Torrellas y Grecia Lopez.
 """
 
-# Nombre: Gabriela Torrellas
+# Nombre: Gabriela Torrellas y Grecia Lopez
 # Fecha: 11/10/2026
 # Proyecto Final CS1400 - Calculadora de Distancias
 
