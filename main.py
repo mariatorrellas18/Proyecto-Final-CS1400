@@ -9,6 +9,12 @@ Bienvenida a nuestro proyecto final de CS1400, donde exploraremos y aplicaremos 
 
 from api import obtener_coordenadas, calcular_distancia
 
+# Velocidades promedio para estimar los tiempos de viaje
+# Se utilizan valores aproximados en kilometros por hora
+VELOCIDAD_AVION = 800
+VELOCIDAD_AUTO = 80
+
+
 
 # Funcion para mostrar el menu principal
 def mostrar_menu():
@@ -69,6 +75,21 @@ def pedir_unidad():
 
         else:
             print("Error: Debes escribir km o millas.")
+
+
+# Funcion para convertir horas decimales a horas y minutos
+def convertir_tiempo(horas):
+    """
+    Convierte las horas decimales al formato
+    de horas y minutos.
+    """
+
+    minutos_totales = round(horas * 60)
+
+    horas_enteras = minutos_totales // 60
+    minutos = minutos_totales % 60
+
+    return f"{horas_enteras} h {minutos} min"
 
 
 # Funcion para mostrar el resumen
@@ -135,16 +156,41 @@ def main():
             # Mostrar las coordenadas obtenidas
             mostrar_coordenadas(datos_origen, datos_destino)
 
-            # Calcular la distancia
-            distancia = calcular_distancia(
-                datos_origen,
-                datos_destino,
-                unidad
+           
+        
+            # Calcular la distancia en kilometros
+            distancia_km = calcular_distancia(
+                datos_origen["lat"],
+                datos_origen["lon"],
+                datos_destino["lat"],
+                datos_destino["lon"]
             )
+
+            # Convertir la distancia a millas
+            distancia_millas = round(distancia_km * 0.621371, 2)
+
+            # Seleccionar la unidad que eligio el usuario
+            if unidad == "millas":
+                distancia = distancia_millas
+            else:
+                distancia = distancia_km
 
             # Mostrar el resultado
             print("\n--- Resultado de la distancia ---")
             print(f"Distancia: {distancia} {unidad}")
+         
+            # Calcular los tiempos estimados de viaje
+            tiempo_avion = distancia_km / VELOCIDAD_AVION
+            tiempo_auto = distancia_km / VELOCIDAD_AUTO
+
+            # Convertir los tiempos a horas y minutos
+            tiempo_avion_formato = convertir_tiempo(tiempo_avion)
+            tiempo_auto_formato = convertir_tiempo(tiempo_auto)
+
+            # Mostrar los tiempos estimados
+            print("\n--- Tiempos estimados de viaje ---")
+            print(f"Tiempo en avion: {tiempo_avion_formato}")
+            print(f"Tiempo en auto: {tiempo_auto_formato}")
 
         elif opcion == "2":
             print("\n¡Gracias por usar nuestra calculadora!")
@@ -158,3 +204,4 @@ def main():
 # Ejecutar el programa
 if __name__ == "__main__":
     main()
+
