@@ -192,6 +192,25 @@ def main():
             print(f"Tiempo en avion: {tiempo_avion_formato}")
             print(f"Tiempo en auto: {tiempo_auto_formato}")
 
+
+            # Mostrar el resumen final del viaje
+            print("\n========== RESUMEN DEL VIAJE ==========")
+            print(f"Origen: {datos_origen['nombre']}, {datos_origen['pais']}")
+            print(f"Destino: {datos_destino['nombre']}, {datos_destino['pais']}")
+
+            # Mostrar las distancias en ambas unidades
+            print(f"\nDistancia en linea recta: {distancia_km:,.2f} km")
+            print(f"Distancia en millas: {distancia_millas:,.2f} millas")
+
+            # Mostrar los tiempos estimados
+            print(f"\nTiempo estimado en avion ({VELOCIDAD_AVION} km/h): {tiempo_avion_formato}")
+            print(f"Tiempo estimado en auto ({VELOCIDAD_AUTO} km/h): {tiempo_auto_formato}")
+
+            # Aclaracion sobre la distancia
+            print("\n* La distancia es una aproximacion en linea recta.")
+            print("=======================================")
+
+
         elif opcion == "2":
             print("\n¡Gracias por usar nuestra calculadora!")
             print("¡Buen viaje turista!")
