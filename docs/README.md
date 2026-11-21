@@ -49,3 +49,19 @@ Durante este proyecto, Gabriela y yo Grecia hemos aprendido a trabajar con difer
 Además, practicamos el uso de condiciones, ciclos, manejo de errores, módulos y operaciones matemáticas
 
 Ha sido una buena oportunidad para poner en práctica lo que hemos aprendido en clase y entender cómo podemos unir diferentes partes de código para crear un programa que funciones
+
+## Nuevas funciones del programa
+
+Agregamos el cálculo de tiempos estimados de viaje en avión (800 km/h) y automóvil (80 km/h), utilizando la función `convertir_tiempo()` para mostrar las horas y minutos. También incluimos un resumen final con las distancias en kilómetros y millas.
+
+## Cómo ejecutar el programa
+
+Para ejecutar nuestra calculadora necesitamos Python y la biblioteca `requests`.
+
+Instalar la biblioteca: `python3 -m pip install requests`
+
+Ejecutar el programa: `python3 main.py`
+
+## Pruebas realizadas
+
+Probamos entradas vacías, ciudades inexistentes, errores de conexión, ciudades iguales y opciones inválidas. El programa manejó correctamente estos casos sin cerrarse inesperadamente.
