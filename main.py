@@ -41,9 +41,29 @@ def pedir_ciudad(mensaje):
 def consultar_ciudad(mensaje):
     """
     Busca una ciudad usando la API.
-    Si la ciudad no existe, permite intentar nuevamente.
-    Si ocurre un error de conexion, regresa al menu.
+    Si la ciudad no existe, regresa al menu principal.
+    Si ocurre un error de conexion, muestra el error.
     """
+
+    ciudad = pedir_ciudad(mensaje)
+
+    try:
+        datos = obtener_coordenadas(ciudad)
+
+        if datos is None:
+            print("Ciudad no encontrada.")
+            return None
+
+        return datos
+
+    except ConnectionError as error:
+        print(f"Error de conexion: {error}")
+        return None
+
+    except ValueError as error:
+        print(f"Error en los datos de la API: {error}")
+        return None
+
 
     while True:
         ciudad = pedir_ciudad(mensaje)
