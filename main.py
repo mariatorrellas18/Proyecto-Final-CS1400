@@ -7,7 +7,10 @@ Bienvenida a nuestro proyecto final de CS1400, donde exploraremos y aplicaremos 
 # Fecha: 11/10/2026
 # Proyecto Final CS1400 - Calculadora de Distancias
 
-from api import obtener_coordenadas, calcular_distancia
+
+from api import obtener_coordenadas
+from ciudad import Ciudad
+
 
 # Velocidades promedio para estimar los tiempos de viaje
 # Se utilizan valores aproximados en kilometros por hora
@@ -166,6 +169,23 @@ def main():
             # Solicitar unidad de distancia
             unidad = pedir_unidad()
 
+
+            # Crear los objetos Ciudad con los datos de la API
+            origen = Ciudad(
+                datos_origen["nombre"],
+                datos_origen["pais"],
+                datos_origen["lat"],
+                datos_origen["lon"]
+            )
+
+            destino = Ciudad(
+                datos_destino["nombre"],
+                datos_destino["pais"],
+                datos_destino["lat"],
+                datos_destino["lon"]
+            )
+
+
             # Mostrar el resumen de confirmacion
             mostrar_resumen(
                 datos_origen["nombre"],
@@ -178,13 +198,10 @@ def main():
 
            
         
-            # Calcular la distancia en kilometros
-            distancia_km = calcular_distancia(
-                datos_origen["lat"],
-                datos_origen["lon"],
-                datos_destino["lat"],
-                datos_destino["lon"]
-            )
+           
+            # Calcular la distancia utilizando los objetos Ciudad
+            distancia_km = origen.distancia_a(destino)
+
 
             # Convertir la distancia a millas
             distancia_millas = round(distancia_km * 0.621371, 2)

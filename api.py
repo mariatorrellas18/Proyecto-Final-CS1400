@@ -3,7 +3,6 @@
 # Fecha: 11/10/2026
 
 import requests
-import math
 
 
 # Funcion para obtener las coordenadas de una ciudad
@@ -74,63 +73,3 @@ def obtener_coordenadas(nombre_ciudad):
         raise ValueError(
             "La API devolvió información inesperada."
         ) from error
-
-
-
-# Funcion para calcular la distancia entre dos ciudades
-def calcular_distancia(lat1, lon1, lat2, lon2):
-    """
-    Calcula la distancia en linea recta entre dos puntos
-    utilizando la formula de Haversine.
-    Devuelve el resultado en kilometros.
-    """
-
-    # Convertir las coordenadas a radianes
-    lat1 = math.radians(lat1)
-    lon1 = math.radians(lon1)
-    lat2 = math.radians(lat2)
-    lon2 = math.radians(lon2)
-
-    # Formula de Haversine
-    diferencia_lat = lat2 - lat1
-    diferencia_lon = lon2 - lon1
-
-    a = (math.sin(diferencia_lat / 2) ** 2 +
-         math.cos(lat1) * math.cos(lat2) *
-         math.sin(diferencia_lon / 2) ** 2)
-
-    a = max(0, min(1, a))
-
-    c = 2 * math.asin(math.sqrt(a))
-
-    # Radio de la Tierra en kilometros
-    distancia = 6371 * c
-
-    # Devolver la distancia en kilometros
-    return round(distancia, 2)
-
-    lat2 = math.radians(destino["lat"])
-    lon2 = math.radians(destino["lon"])
-
-    # Formula de Haversine
-    diferencia_lat = lat2 - lat1
-    diferencia_lon = lon2 - lon1
-
-    a = (math.sin(diferencia_lat / 2) ** 2 +
-         math.cos(lat1) * math.cos(lat2) *
-         math.sin(diferencia_lon / 2) ** 2)
-
-    c = 2 * math.atan2(
-        math.sqrt(a),
-        math.sqrt(1 - a)
-    )
-
-    # Radio aproximado de la Tierra en kilometros
-    distancia = 6371 * c
-
-    # Convertir a millas si el usuario lo solicita
-    if unidad == "millas":
-        distancia = distancia * 0.621371
-
-    # Devolver la distancia con dos decimales
-    return round(distancia, 2)
